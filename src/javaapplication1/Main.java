@@ -10,58 +10,80 @@ import java.util.Scanner;
  * @author Leonardo Sanhueza
  */
 public class Main {
-    Scanner sc = new Scanner(System.in);
+    
     
     public static void main(String[] args) {
-        Main main = new Main();
         Automata automata= new Automata();
-        main.Linea1();
-
+        Linea1(automata);
+        //agregar aqui el boolean y mostrar el error en linea 1
+        Linea2(automata);
+        //agregar aqui el boolean y mostrar el error en linea 2
+        Linea3(automata);
+        //agregar aqui el boolean y mostrar el error en linea 3
+        Linea4(automata);
+        //agregar aqui el boolean y mostrar el error en linea 4
+        Linea5(automata);
+        //agregar aqui el boolean y mostrar el error en linea 5
+        Linea6(automata);
+        //agregar aqui el boolean y mostrar el error en linea 6
     }
 
-    public void Linea1(){
+    public static void Linea1(Automata automata){
+        Scanner sc = new Scanner(System.in);
         String a=sc.nextLine();
-        String[] aa=a.split(" ");
-        for(String item : aa){
-            //La idea es agregar aqui los estados al automata
+        if(!a.matches("^[a-zA-Z0-9]*$")){
+        //Agregar el bolean    
+        }else{
+            String[] aa=a.split(" ");
+            for(String item : aa){
+                automata.AgregarEstado(item);
+                Nodo nodo = new Nodo(item);
+                automata.AgregarNodo(nodo);
+            }
         }
     }
     
-    public void Linea2(){
+    public static void Linea2(Automata automata){
+        Scanner sc = new Scanner(System.in);
         String a=sc.nextLine();
         String[] aa=a.split(" ");
         for(String item : aa){
-            //La idea es agregar aqui los simbolos al automata
+            automata.AgregarSimbolo(item);
         }
     }
     
-    public void Linea3(){
+    public static void Linea3(Automata automata){
+        Scanner sc = new Scanner(System.in);
         String a=sc.next();
-        //La idea es agregar aqui estado inicial al automata
+        automata.AgregarEstadoInicial(a);
     }
     
-    public void Linea4(){
+    public static void Linea4(Automata automata){
+        Scanner sc = new Scanner(System.in);
         String a=sc.nextLine();
         String[] aa=a.split(" ");
         for(String item : aa){
-            //La idea es agregar aqui los estados finales al automata
+            automata.AgregarEstadoFinal(item);
         }
     }
     
-    public void Linea5(){
+    public static void Linea5(Automata automata){
+        Scanner sc = new Scanner(System.in);
         String a=sc.nextLine();
         String[] aa=a.split(" ");
+        //decir si es determinista o no porque el for es determinista
         for(String item : aa){
-            //La idea es agregar aqui las transiciones al automata
+            String tran=item.substring(1,item.length()-1);
+            String[] trans = tran.split(",");
+            Transicion transicion = new Transicion(automata.getGrafo().buscarPorNombre(trans[0]),automata.getGrafo().buscarPorNombre(trans[2]),Integer.parseInt(trans[1]));
+            automata.AgregarTransicion(transicion);
         }
     }
     
-    public void Linea6(){
+    public static void Linea6(Automata automata){
+        Scanner sc = new Scanner(System.in);
         String a=sc.nextLine();
-        String[] aa=a.split(" ");
-        for(String item : aa){
-            //La idea es agregar aqui la palabra
-        }
+        automata.setPalabra(a);
     }
 }
 
