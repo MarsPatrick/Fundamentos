@@ -79,5 +79,12 @@ public class Automata {
     public void setPalabra(String palabra) {
         this.palabra = palabra;
     }
+    
+    public void Palabra(){
+        int tam=this.palabra.length();
+        for(int x=0;x<tam+1;x++){
+            System.out.println(palabra.substring(0,x)+"_"+palabra.substring(x,tam));
+        }
+    }
 
 }

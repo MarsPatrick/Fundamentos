@@ -28,6 +28,7 @@ public class Main {
         //agregar aqui el boolean y mostrar el error en linea 5
         Linea6(automata);
         //agregar aqui el boolean y mostrar el error en linea 6
+        automata.Palabra();
     }
 
     public static void Linea1(Automata automata){

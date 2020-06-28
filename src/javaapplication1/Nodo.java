@@ -33,7 +33,7 @@ public class Nodo {
         }
         Transiciones.add(transicion);
     }
- 
+    
     @Override
     public String toString() {
         return "\n \tEstado [Estado = " + Estado + ", Linea = " + Transiciones + "]";
