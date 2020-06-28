@@ -7,7 +7,7 @@ import java.util.Scanner;
  * @author Jorge Fernandez
  * @author Patricio Labra
  * @author Andres Vargas
- * @author Leonardo Sanhueza
+ * @author Leonardo Sanhueta
  */
 public class Main {
     

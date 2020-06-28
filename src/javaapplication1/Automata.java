@@ -82,8 +82,9 @@ public class Automata {
     
     public void Palabra(){
         int tam=this.palabra.length();
+        Transicion t=this.transiciones.get(0);
         for(int x=0;x<tam+1;x++){
-            System.out.println(palabra.substring(0,x)+"_"+palabra.substring(x,tam));
+            System.out.println(palabra.substring(0,x)+"_"+palabra.substring(x,tam)+" ");
         }
     }
 
