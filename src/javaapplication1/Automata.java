@@ -82,10 +82,11 @@ public class Automata {
     
     public void Palabra(){
         int tam=this.palabra.length();
-        Transicion t=this.transiciones.get(0);
+        Nodo n=this.transiciones.get(0).getOrigen();
+        String av=this.palabra;
         for(int x=0;x<tam+1;x++){
-            System.out.println(palabra.substring(0,x)+"_"+palabra.substring(x,tam)+" "+t.getOrigen().getEstado());
+            System.out.println(palabra.substring(0,x)+"_"+palabra.substring(x,tam)+" "+n.getEstado());
+            //Buscar como avanzar en los nodos correspondientes
         }
     }
-
 }
