@@ -87,9 +87,10 @@ public class Main {
     public static void Linea5(Automata automata){
         Scanner sc = new Scanner(System.in);
         String a=sc.nextLine();
-        if(!a.matches("(\\w.*)(#)")){
-            //Agregar el bolean    
-        }else{
+        /*if(!a.matches("(\\w.*)(#)")){
+            //Agregar el bolean   
+            System.out.println("no funciona");
+        }else{*/
             String[] aa=a.split(" ");
             //decir si es determinista o no porque el for es determinista
             for(String item : aa){
@@ -99,7 +100,7 @@ public class Main {
                 Transicion transicion = new Transicion(automata.getGrafo().buscarPorNombre(trans[0]),automata.getGrafo().buscarPorNombre(trans[2]),Integer.parseInt(trans[1]));
                 automata.AgregarTransicion(transicion);
             }
-        }
+        //}
     }
     
     public static void Linea6(Automata automata){
