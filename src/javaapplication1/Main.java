@@ -161,7 +161,7 @@ public class Main {
                     ret=true;
                 }
                 if(ret==false && existen==true){
-                    Transicion transicion = new Transicion(automata.getGrafo().buscarPorNombre(trans[0]),automata.getGrafo().buscarPorNombre(trans[2]),Integer.parseInt(trans[1]));
+                    Transicion transicion = new Transicion(automata.getGrafo().buscarPorNombre(trans[0]),automata.getGrafo().buscarPorNombre(trans[2]),trans[1]);
                     automata.AgregarTransicion(transicion);
                     automata.getGrafo().buscarPorNombre(trans[0]).addTransicion(transicion);
                 }
@@ -174,9 +174,11 @@ public class Main {
         boolean ret=false;
         Scanner sc = new Scanner(System.in);
         String a=sc.nextLine();
-        for(int x=0;x<a.length();x++){
+        int cont=0;
+        int i=automata.getSimbolos().get(cont).length();
+        for(int x=0;x<a.length();x=x+i){
             if(ret==false){
-                String aa=String.valueOf(a.charAt(x));
+                String aa=a.substring(x, x+i);
                 if(!aa.matches("(\\w.*)")){
                     ret=true;  
                 }else{

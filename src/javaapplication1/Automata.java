@@ -87,12 +87,13 @@ public class Automata {
         String av=this.palabra;
         boolean xd =false;
         boolean xd2=false;
-        for(int x=0;x<tam+1;x++){
+        int i=this.getSimbolos().get(0).length();
+        for(int x=0;x<tam+1;x=x+i){
             if(xd2==false){
                 System.out.println(av.substring(0,x)+"_"+av.substring(x,tam)+" "+n.getEstado());
                 for(Transicion tran : this.transiciones){
                     if(n.getEstado().equalsIgnoreCase(tran.getOrigen().getEstado())){
-                        if(tran.getValor()==Integer.parseInt(this.palabra.substring(x, x+1))){
+                        if(tran.getValor().equals(this.palabra.substring(x, x+i))){
                             if(xd==false){
                                 n=tran.getDestino();
                                 xd=true;
@@ -110,28 +111,30 @@ public class Automata {
     
     public void Acepta(){
         String pal = this.getPalabra();
+        int cont=0;
+        int x=this.getSimbolos().get(cont).length();
         Boolean acep=false;
         for (Nodo nodo : this.getGrafo().getNodos()) {
             if (nodo.isInicial()==true) {
-                for (int i = 0; i < pal.length(); i++) {
-                    String temp=pal.substring(i, i+1);
+                for (int i = 0; i < pal.length(); i=i+x) {
+                    String temp=pal.substring(i, i+x);
                     if(nodo.isFin()==true && nodo.getTransicion()==null){
                         break;
                     }
                     for (Transicion tran : nodo.getTransicion()) {
-                        if(Integer.parseInt(temp)==tran.getValor()){
+                        if(temp.equals(tran.getValor())){
                             List<Nodo> nodos = this.getGrafo().getNodos();
                             for (int j = 0; j < nodos.size(); j++) {
                                 if(nodos.get(j).getEstado().equalsIgnoreCase(tran.getDestino().getEstado()))
                                     nodo=nodos.get(j);
                             }
-                            if(nodo.isFin()==true && (i+1)==pal.length()){
+                            if(nodo.isFin()==true && (i+x)==pal.length()){
                                 System.out.println("Aceptado");
                                 acep=true;
                                 System.exit(0);
                             }
                         }
-                    } 
+                    }
                 }
             }
         }

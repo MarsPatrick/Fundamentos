@@ -5,9 +5,9 @@ package javaapplication1;
 public class Transicion {
     private Nodo Origen;
     private Nodo Destino;
-    private int Valor;
+    private String Valor;
  
-    public Transicion(Nodo Origen, Nodo Destino, int Valor) {
+    public Transicion(Nodo Origen, Nodo Destino, String Valor) {
         this.Origen = Origen;
         this.Destino = Destino;
         this.Valor = Valor;
@@ -29,11 +29,11 @@ public class Transicion {
         this.Destino = destino;
     }
  
-    public int getValor() {
+    public String getValor() {
         return Valor;
     }
  
-    public void setValor(int Valor) {
+    public void setValor(String Valor) {
         this.Valor = Valor;
     }
  
