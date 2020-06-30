@@ -86,19 +86,25 @@ public class Automata {
         Nodo n=this.transiciones.get(0).getOrigen();
         String av=this.palabra;
         boolean xd =false;
+        boolean xd2=false;
         for(int x=0;x<tam+1;x++){
-            System.out.println(av.substring(0,x)+"_"+av.substring(x,tam)+" "+n.getEstado());
-            for(Transicion tran : this.transiciones){
-                if(n.getEstado().equalsIgnoreCase(tran.getOrigen().getEstado())){
-                    if(tran.getValor()==Integer.parseInt(this.palabra.substring(x, x+1))){
-                        if(xd==false){
-                            n=tran.getDestino();
-                            xd=true;
+            if(xd2==false){
+                System.out.println(av.substring(0,x)+"_"+av.substring(x,tam)+" "+n.getEstado());
+                for(Transicion tran : this.transiciones){
+                    if(n.getEstado().equalsIgnoreCase(tran.getOrigen().getEstado())){
+                        if(tran.getValor()==Integer.parseInt(this.palabra.substring(x, x+1))){
+                            if(xd==false){
+                                n=tran.getDestino();
+                                xd=true;
+                            }
                         }
                     }
                 }
+                if(xd==false){
+                    xd2=true;
+                }
+                xd=false;
             }
-            xd=false;
         }
     }
     
