@@ -62,6 +62,7 @@ public class Main {
             automata.AgregarEstado(item);
             Nodo nodo = new Nodo(item);
             automata.AgregarNodo(nodo);
+            automata.getGrafo().addNodo(nodo);
         }
         return ret;
     }
@@ -162,6 +163,7 @@ public class Main {
                 if(ret==false && existen==true){
                     Transicion transicion = new Transicion(automata.getGrafo().buscarPorNombre(trans[0]),automata.getGrafo().buscarPorNombre(trans[2]),Integer.parseInt(trans[1]));
                     automata.AgregarTransicion(transicion);
+                    automata.getGrafo().buscarPorNombre(trans[0]).addTransicion(transicion);
                 }
             }
         }

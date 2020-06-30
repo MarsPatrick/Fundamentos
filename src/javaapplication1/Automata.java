@@ -122,7 +122,7 @@ public class Automata {
                             if(nodo.isFin()==true && (i+1)==pal.length()){
                                 System.out.println("Aceptado");
                                 acep=true;
-                                break;
+                                System.exit(0);
                             }
                         }
                     } 
