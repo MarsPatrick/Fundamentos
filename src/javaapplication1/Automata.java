@@ -2,6 +2,7 @@ package javaapplication1;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
 public class Automata {
 
@@ -98,6 +99,38 @@ public class Automata {
                 }
             }
             xd=false;
+        }
+    }
+    
+    public void Acepta(){
+        String pal = this.getPalabra();
+        Boolean acep=false;
+        for (Nodo nodo : this.getGrafo().getNodos()) {
+            if (nodo.isInicial()==true) {
+                for (int i = 0; i < pal.length(); i++) {
+                    String temp=pal.substring(i, i+1);
+                    if(nodo.isFin()==true && nodo.getTransicion()==null){
+                        break;
+                    }
+                    for (Transicion tran : nodo.getTransicion()) {
+                        if(Integer.parseInt(temp)==tran.getValor()){
+                            List<Nodo> nodos = this.getGrafo().getNodos();
+                            for (int j = 0; j < nodos.size(); j++) {
+                                if(nodos.get(j).getEstado().equalsIgnoreCase(tran.getDestino().getEstado()))
+                                    nodo=nodos.get(j);
+                            }
+                            if(nodo.isFin()==true && (i+1)==pal.length()){
+                                System.out.println("Aceptado");
+                                acep=true;
+                                break;
+                            }
+                        }
+                    } 
+                }
+            }
+        }
+        if(acep==false){
+            System.out.println("Rechazado");
         }
     }
 }

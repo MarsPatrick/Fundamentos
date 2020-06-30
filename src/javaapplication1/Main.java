@@ -47,6 +47,7 @@ public class Main {
             System.exit(0);
         }
         automata.Palabra();
+        automata.Acepta();
     }
 
     public static boolean Linea1(Automata automata){
@@ -90,6 +91,7 @@ public class Main {
             for(String aa : automata.getEstados()){
                 if(aa.equalsIgnoreCase(a)){
                     ret=false;
+                    automata.getGrafo().buscarPorNombre(aa).setInicial(true);
                 }
             }
             automata.AgregarEstadoInicial(a);
@@ -111,6 +113,7 @@ public class Main {
                 for(String aaa : automata.getEstados()){
                     if(aaa.equalsIgnoreCase(item)){
                         ret=false;
+                        automata.getGrafo().buscarPorNombre(aaa).setFin(true);
                     }
             }
                 automata.AgregarEstadoFinal(item);
@@ -124,17 +127,14 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         String a=sc.nextLine();
         String[] aa=a.split(" ");
-        //decir si es determinista o no porque el for es determinista
+        //
+        //INSERTAR ACA LA FUNCION PARA PASAR DE AFND A AFD
+        //
+        //
         for(String item : aa){
-            //Revisar si las transiciones existen
             if(ret==false){
                 String tran=item.substring(1,item.length()-1);
                 String[] trans = tran.split(",");
-                for(String aaa : trans){
-                    if(!aaa.matches("(\\w.*)")){
-                        ret=true;
-                    }
-                }
                 boolean existe0=false;
                 for(String aaaa : automata.getEstados()){
                     if(aaaa.equalsIgnoreCase(trans[0])){
@@ -145,10 +145,6 @@ public class Main {
                 for(String aaaa : automata.getSimbolos()){    
                     if(aaaa.equalsIgnoreCase(trans[1])){
                         existe1=true;
-                    }else{
-                        if(aaaa.equals("#")){
-                            existe1=true;
-                        }
                     }
                 }
                 boolean existe2=false;
@@ -177,11 +173,19 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         String a=sc.nextLine();
         for(int x=0;x<a.length();x++){
-            String aa=String.valueOf(a.charAt(x));
-            if(!aa.matches("(\\w.*)")){
-                ret=true;  
-            }else{
-                automata.setPalabra(a);
+            if(ret==false){
+                String aa=String.valueOf(a.charAt(x));
+                if(!aa.matches("(\\w.*)")){
+                    ret=true;  
+                }else{
+                    ret=true;
+                    for(String aaa : automata.getSimbolos()){
+                        if(aaa.equalsIgnoreCase(aa)){
+                            ret=false;
+                        }
+                    }
+                    automata.setPalabra(a);
+                }
             }
         }
         return ret;
