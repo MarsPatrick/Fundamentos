@@ -84,9 +84,20 @@ public class Automata {
         int tam=this.palabra.length();
         Nodo n=this.transiciones.get(0).getOrigen();
         String av=this.palabra;
+        boolean xd =false;
         for(int x=0;x<tam+1;x++){
-            System.out.println(palabra.substring(0,x)+"_"+palabra.substring(x,tam)+" "+n.getEstado());
-            //Buscar como avanzar en los nodos correspondientes
+            System.out.println(av.substring(0,x)+"_"+av.substring(x,tam)+" "+n.getEstado());
+            for(Transicion tran : this.transiciones){
+                if(n.getEstado().equalsIgnoreCase(tran.getOrigen().getEstado())){
+                    if(tran.getValor()==Integer.parseInt(this.palabra.substring(x, x+1))){
+                        if(xd==false){
+                            n=tran.getDestino();
+                            xd=true;
+                        }
+                    }
+                }
+            }
+            xd=false;
         }
     }
 }
