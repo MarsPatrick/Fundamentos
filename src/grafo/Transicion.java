@@ -5,9 +5,9 @@ package grafo;
 public class Transicion {
     private Nodo Origen;
     private Nodo Destino;
-    private int Simbolo;
+    private String Simbolo;
  
-    public Transicion(Nodo Origen, Nodo Destino, int Simbolo) {
+    public Transicion(Nodo Origen, Nodo Destino, String Simbolo) {
         this.Origen = Origen;
         this.Destino = Destino;
         this.Simbolo = Simbolo;
@@ -29,16 +29,16 @@ public class Transicion {
         this.Destino = destino;
     }
  
-    public int getSimbolo() {
+    public String getSimbolo() {
         return Simbolo;
     }
  
-    public void setSimbolo(int simbolo) {
+    public void setSimbolo(String simbolo) {
         this.Simbolo = simbolo;
     }
     @Override
     public String toString() {
-        return "\n Linea [ Estado original = " + Origen.getCity()+ ", Estado donde llega =" + Destino.getCity() + ", Valor="
+        return "\n Linea [ Estado original = " + Origen.getEstado()+ ", Estado donde llega =" + Destino.getEstado() + ", Valor="
                 + Simbolo + "]";
     }
  

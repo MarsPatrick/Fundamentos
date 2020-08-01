@@ -5,10 +5,13 @@ import java.util.*;
 
 
 public class Nodo {
-    private String city;
-    private List<Transicion> edges;
+    private String Estado;
     private Boolean inicial=false;
     private Boolean finall =false;
+
+    Nodo() {
+        
+    }
 
     public Boolean getInicial() {
         return inicial;
@@ -26,30 +29,20 @@ public class Nodo {
         this.finall = finall;
     }
  
-    public Nodo(String city) {
-        this.city = city;
+    public Nodo(String Estado) {
+        this.Estado = Estado;
     }
  
-    public String getCity() {
-        return city;
+    public String getEstado() {
+        return Estado;
     }
  
-    public void setCity(String city) {
-        this.city = city;
+    public void setEstado(String Estado) {
+        this.Estado = Estado;
     }
- 
-    public List<Transicion> getEdges() {
-        return edges;
-    }
- 
-    public void addEdge(Transicion edge) {
-        if (edges == null) {
-            edges = new ArrayList<>();
-        }
-        edges.add(edge);
-    }
+    
     @Override
     public String toString() {
-        return "\n \tEstado [Estado = " + city + ", Linea = " + edges + "]"+"final"+finall+"inicial"+inicial;
+        return "xd";
     }
 }

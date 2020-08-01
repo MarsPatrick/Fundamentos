@@ -29,7 +29,7 @@ public class GrafoAntiguoMain {
     }
 
     
-    public static void main(String[] args) {
+    public static void main(String[] args) {/*
         String linea1;
         Scanner s= new Scanner(System.in);
         //System.out.println("soy 1");
@@ -157,8 +157,9 @@ public class GrafoAntiguoMain {
         
         
         
-        }
         
+       */ 
+        }
     }
 
    
