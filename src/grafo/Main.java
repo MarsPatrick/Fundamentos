@@ -18,12 +18,43 @@ public class Main {
         String Linea5=sc.nextLine();
         String Linea6=sc.nextLine();
         
+        if(Agregar(Linea1,1," ","(\\w.*)")==false){
+        }else{
+           if(Agregar(Linea2,2," ","(\\w.*)")==false){
+           }else{
+               if(Agregar(Linea3,3," ","(\\w.*)")==false){
+               }else{
+                   if(Agregar(Linea4,4," ","(\\w.*)")==false){
+                       
+                   }else{
+                       if(Agregar(Linea5,5," ","(\\w.*)")==false){
+                       }else{
+                           if(Agregar(Linea6,6," ","(\\w.*)")==false){
+                           }else{
+                               //Ejecutar automata
+                           }
+                       }
+                   }
+               }
+           }
+        }
+        
+        
+        
+        
+        
+        
     }
     
-    public static boolean Agregar(String palabra,int linea){
-        boolean agregado=false;
+    public static boolean Agregar(String palabra,int linea,String separador,String regla){
+        boolean agregado=true;
         
-        //De aca tomar string Linea y usar las dos de abajo para ver si se manda al grafo
+        String[] palabragregar=Separador(palabra,separador);
+        
+        for(String item : palabragregar){
+            if(Verificador(item,regla)==false)
+                agregado=false;
+        }
         
         if(agregado==false){
             System.out.println("Error en "+linea);
@@ -38,9 +69,9 @@ public class Main {
         return separada;
     }
     
-    public static boolean isAlphanumeric(String palabra){
+    public static boolean Verificador(String palabra,String regla){
         boolean Loes=false;
-        if(palabra.matches("(\\w.*)")){
+        if(palabra.matches(regla)){
             Loes=true;
         }
         return Loes;
