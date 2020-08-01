@@ -32,7 +32,7 @@ public class Main {
         //Cambiar a String[] y que lo o los agregue en el automata
         au.setFinal(Linea5);
         
-        //au.AgregarUnAlfabetoPila(Linea6);
+        //au.AgregarUnAlfabetoPila(Linea6); 
     }
     
     public static String[] Separador(String palabra,String separador,String regla,int linea){
