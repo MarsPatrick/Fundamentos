@@ -6,7 +6,7 @@ import java.util.*;
 
 public class Nodo {
     private String city;
-    private List<Edge> edges;
+    private List<Transicion> edges;
     private Boolean inicial=false;
     private Boolean finall =false;
 
@@ -38,11 +38,11 @@ public class Nodo {
         this.city = city;
     }
  
-    public List<Edge> getEdges() {
+    public List<Transicion> getEdges() {
         return edges;
     }
  
-    public void addEdge(Edge edge) {
+    public void addEdge(Transicion edge) {
         if (edges == null) {
             edges = new ArrayList<>();
         }

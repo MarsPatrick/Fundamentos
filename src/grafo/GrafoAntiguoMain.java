@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 
-public class Grafo {
+public class GrafoAntiguoMain {
     public static void mostrardatos(String[] estados, String[] simbolos,String linea3, String[] finales, ArrayList<String[]> otro){
         for (int i = 0; i < estados.length; i++) {
             System.out.println("Los estados son "+estados[i]);
@@ -82,7 +82,7 @@ public class Grafo {
                         }
                     }
                 
-                Edge es = new Edge(ori, des, Integer.parseInt(otro.get(j)[1]));
+                Transicion es = new Transicion(ori, des, Integer.parseInt(otro.get(j)[1]));
                 nodos.get(i).addEdge(es);
             }
                 
@@ -126,13 +126,13 @@ public class Grafo {
                     if(nodo.getFinall()==true && nodo.getEdges()==null){
                         break;
                     }
-                    for (Edge tran : nodo.getEdges()) {
-                        if(Integer.parseInt(temp)==tran.getDistance()){
+                    for (Transicion tran : nodo.getEdges()) {
+                        if(Integer.parseInt(temp)==tran.getSimbolo()){
                             //System.out.println("pase");
                             
                             //System.out.println(nodo.getEdges().toString());
                             for (int j = 0; j < nodos.size(); j++) {
-                                if(nodos.get(j).getCity().equalsIgnoreCase(tran.getDestination().getCity()))
+                                if(nodos.get(j).getCity().equalsIgnoreCase(tran.getDestino().getCity()))
                                     nodo=nodos.get(j);
                                     
                             }
