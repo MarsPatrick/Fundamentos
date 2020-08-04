@@ -6,11 +6,31 @@ public class Transicion {
     private Nodo Origen;
     private Nodo Destino;
     private String Simbolo;
+    private String Simbolo_Pila;
+    private String Palabra_Pila;
  
-    public Transicion(Nodo Origen, Nodo Destino, String Simbolo) {
+   public Transicion(Nodo Origen, String Simbolo, String Simbolo_Pila, Nodo Destino, String Palabra_Pila) {
         this.Origen = Origen;
         this.Destino = Destino;
         this.Simbolo = Simbolo;
+        this.Simbolo_Pila = Simbolo_Pila;
+        this.Palabra_Pila = Palabra_Pila;
+    }
+
+    public String getPalabra_Pila() {
+        return Palabra_Pila;
+    }
+
+    public void setPalabra_Pila(String Palabra_Pila) {
+        this.Palabra_Pila = Palabra_Pila;
+    }
+
+    public String getSimbolo_Pila() {
+        return Simbolo_Pila;
+    }
+
+    public void setSimbolo_Pila(String Simbolo_Pila) {
+        this.Simbolo_Pila = Simbolo_Pila;
     }
  
     public Nodo getOrigen() {

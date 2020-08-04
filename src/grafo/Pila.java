@@ -10,12 +10,12 @@ public class Pila {
         this.pila= new Stack();
     }
     
-    public void Agregar(int Algo){
-        this.pila.push(Algo);
+    public void Agregar(String Simbolo){
+        this.pila.push(Simbolo);
     }
     
-    public void EliminarUltimo(){
-        this.pila.pop();
+    public Object EliminarUltimo(){
+        return this.pila.pop();
     }
     
     public void DarVuelta(){

@@ -10,6 +10,12 @@ public class Automata {
     public List<Transicion> transiciones;
     public String[] Simbolos;
     public String[] AlfabetoPila;
+    public Pila pila;
+    
+    public Automata(){
+        this.nodos = new ArrayList();
+        this.transiciones = new ArrayList();
+    }
     
     public void AgregarEstados(String[] Estados){
         if (nodos == null) {
@@ -30,15 +36,12 @@ public class Automata {
         this.Simbolos=Simbolo;
     }
     
-    public void AgregarUnAlfabetoPila(String Simbolo){
-        //Hacer la wea pajaaaaaaaaaaaaaaaaaa
+    public void IniciarPila(String Simbolo){
+        this.pila.Agregar(Simbolo);
     }
     
-    public void AgregarTransicion(String origen,String Simbolo,String destino){
-        if(this.transiciones==null){
-            this.transiciones=new ArrayList<>();
-        }
-        Transicion t=new Transicion(this.BuscarNodo(origen),this.BuscarNodo(destino),Simbolo);
+    public void AgregarTransicion(String origen,String Simbolo,String Simbolo_Pila,String destino,String Palabra_Pila){
+        Transicion t=new Transicion(this.BuscarNodo(origen),Simbolo,Simbolo_Pila,this.BuscarNodo(destino),Palabra_Pila);
         this.transiciones.add(t);
     }
     
@@ -46,6 +49,21 @@ public class Automata {
         for(Nodo n:nodos){
             if(n.getEstado().equalsIgnoreCase(ABuscar))
                 return n;
+        }
+        return null;
+    }
+    
+    public Nodo HacerTransicion(String Simbolo){
+        String x=this.pila.EliminarUltimo().toString();
+        for(Transicion tran : this.transiciones){
+            if(tran.getSimbolo().equalsIgnoreCase(Simbolo)){
+                if(tran.getSimbolo_Pila().equalsIgnoreCase(x)){
+                    if(!tran.getPalabra_Pila().equalsIgnoreCase(" ")){
+                        this.pila.Agregar(tran.getPalabra_Pila());
+                    }
+                    return tran.getDestino();
+                }
+            }
         }
         return null;
     }
@@ -71,9 +89,6 @@ public class Automata {
     }
     
     public void addNode(Nodo node) {
-        if (nodos == null) {
-            nodos = new ArrayList<>();
-        }
         nodos.add(node);
     }
  

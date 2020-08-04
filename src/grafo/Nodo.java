@@ -1,16 +1,18 @@
 
 package grafo;
 
-import java.util.*;
-
-
 public class Nodo {
     private String Estado;
     private Boolean inicial=false;
     private Boolean finall =false;
 
-    Nodo() {
-        
+    public Nodo() {        
+    }
+    
+    public Nodo(String Estado,boolean Inicial,boolean Final) {
+        this.Estado = Estado;
+        this.inicial=Inicial;
+        this.finall=Final;
     }
 
     public Boolean getInicial() {
@@ -27,10 +29,6 @@ public class Nodo {
 
     public void setFinall(Boolean finall) {
         this.finall = finall;
-    }
- 
-    public Nodo(String Estado) {
-        this.Estado = Estado;
     }
  
     public String getEstado() {
