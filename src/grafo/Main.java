@@ -21,7 +21,7 @@ public class Main {
         String Linea6=sc.nextLine(); // (Alfabeto Inicial)
         //L
         String Linea7=sc.nextLine(); // (Transiciones)
-        //(q1,0,L=q1,AL) (q1,0,A=q1,AA) (q1,1,A=q2,#)(q2,1,A=q2,#)
+        //(q1,0,L=q1,AL) (q1,0,A=q1,AA) (q1,1,A=q2,#) (q2,1,A=q2,#)
         String Linea8=sc.nextLine(); // (Palabra a reconocer)
         //000111
        
@@ -42,7 +42,7 @@ public class Main {
         
         au.AgregarTransiciones(Separador(Linea7," ","(\\w.*)",7));
         
-        //Hacer que lea la wea de palabra
+        au.recorrer(Linea8);
     }
     
     public static String[] Separador(String palabra,String separador,String regla,int linea){

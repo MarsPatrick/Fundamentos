@@ -10,6 +10,7 @@ public class Automata {
     public String[] Simbolos;
     public String[] AlfabetoPila;
     public Pila pila;
+    public Nodo actual;
     
     public Automata(){
         this.nodos = new ArrayList();
@@ -70,6 +71,9 @@ public class Automata {
             String tran=item.substring(1,item.length()-1);
             String[] trans = tran.split(",");
             String[] trans1 = trans[2].split("=");
+            if(trans[3].equalsIgnoreCase("#")){
+                trans[3]=" ";
+            }
             this.AgregarTransicion(trans[0], trans[1], trans1[0], trans1[1], trans[3]);
         }
     }
@@ -84,23 +88,43 @@ public class Automata {
     
     public Nodo HacerTransicion(String Simbolo){
         String x=this.pila.EliminarUltimo().toString();
+        int y,z;
         for(Transicion tran : this.transiciones){
-            if(tran.getSimbolo().equalsIgnoreCase(Simbolo)){
-                if(tran.getSimbolo_Pila().equalsIgnoreCase(x)){
-                    if(!tran.getPalabra_Pila().equalsIgnoreCase(" ")){
-                        this.pila.Agregar(tran.getPalabra_Pila());
+            if(tran.getOrigen()==actual){
+                if(tran.getSimbolo().equalsIgnoreCase(Simbolo)){
+                    if(tran.getSimbolo_Pila().equalsIgnoreCase(x)){
+                        if(!tran.getPalabra_Pila().equalsIgnoreCase(" ")){
+                            y=tran.getPalabra_Pila().length();
+                            for(int cont=0;cont<y;cont++){
+                                z=cont;
+                                this.pila.Agregar(tran.getPalabra_Pila().substring(cont, z+1));
+                            }
+                        }
+                        return tran.getDestino();
                     }
-                    return tran.getDestino();
                 }
             }
         }
         return null;
     }
     
+    public void recorrer(String Palabra){
+        int x=Palabra.length();
+        int y;
+        for(int cont=0;cont<x;cont++){
+            y=cont;
+            Nodo n = this.HacerTransicion(Palabra.substring(cont,y+1));
+            actual = n;
+            //El soout da null pointer dice
+            System.out.println(Palabra.substring(0, cont)+"."+Palabra.substring(cont,x)+" "+this.actual.getEstado()+" "+this.pila.Imprimir());
+        }
+    }
+    
     public void setInicial(String Inicial){
         //Arreglar String
         if(this.BuscarNodo(Inicial)!=null){
             this.BuscarNodo(Inicial).setInicial(true);
+            this.actual=this.BuscarNodo(Inicial);
         }else{
             this.Error(4);
         }

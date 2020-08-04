@@ -18,12 +18,26 @@ public class Pila {
         return this.pila.pop();
     }
     
-    public void DarVuelta(){
+    public Stack DarVuelta(Stack Pila){
         Stack PilaNueva = new Stack();
-        while(!this.pila.empty()){
-            PilaNueva.push(pila.pop());
+        while(!Pila.isEmpty()){
+            PilaNueva.push(Pila.pop());
         }
-        this.pila=PilaNueva;
+        return PilaNueva;
+    }
+    
+    public String Imprimir(){
+        String x="";
+        String y;
+        Stack reserva = new Stack();
+        pila=this.DarVuelta(pila);
+        while(!pila.isEmpty()){
+            y=this.EliminarUltimo().toString();
+            x=x+y;
+            reserva.push(y);
+        }
+        pila=reserva;
+        return x;
     }
     
 }
