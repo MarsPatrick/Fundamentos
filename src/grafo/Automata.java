@@ -4,7 +4,6 @@ package grafo;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class Automata {
     public List<Nodo> nodos;
     public List<Transicion> transiciones;
@@ -15,6 +14,7 @@ public class Automata {
     public Automata(){
         this.nodos = new ArrayList();
         this.transiciones = new ArrayList();
+        this.pila = new Pila();
     }
     
     public void AgregarEstados(String[] Estados){
@@ -33,7 +33,7 @@ public class Automata {
     }
     
     public void AgregarAlfabetoPila(String[] Simbolo){
-        this.Simbolos=Simbolo;
+        this.AlfabetoPila=Simbolo;
     }
     
     public void IniciarPila(String Simbolo){
@@ -41,8 +41,37 @@ public class Automata {
     }
     
     public void AgregarTransicion(String origen,String Simbolo,String Simbolo_Pila,String destino,String Palabra_Pila){
+        boolean error=true;
+        if(this.BuscarNodo(origen)==null || this.BuscarNodo(destino)==null){
+            this.Error(7);
+        }
+        for(String simb: this.Simbolos){
+            if(simb.equalsIgnoreCase(Simbolo)){
+                error=false;
+            }
+        }
+        if(error==true){
+            this.Error(7);
+        }
+        for(String simb: this.AlfabetoPila){
+            if(simb.equalsIgnoreCase(Simbolo_Pila)){
+                error=false;
+            }
+        }
+        if(error==true){
+            this.Error(7);
+        }
         Transicion t=new Transicion(this.BuscarNodo(origen),Simbolo,Simbolo_Pila,this.BuscarNodo(destino),Palabra_Pila);
         this.transiciones.add(t);
+    }
+    
+    public void AgregarTransiciones(String[] Transiciones){
+        for(String item : Transiciones){
+            String tran=item.substring(1,item.length()-1);
+            String[] trans = tran.split(",");
+            String[] trans1 = trans[2].split("=");
+            this.AgregarTransicion(trans[0], trans[1], trans1[0], trans1[1], trans[3]);
+        }
     }
     
     public Nodo BuscarNodo(String ABuscar){
@@ -73,8 +102,7 @@ public class Automata {
         if(this.BuscarNodo(Inicial)!=null){
             this.BuscarNodo(Inicial).setInicial(true);
         }else{
-            System.out.println("Error encontrado en 4");
-            System.exit(0);
+            this.Error(4);
         }
     }
     
@@ -83,8 +111,7 @@ public class Automata {
         if(this.BuscarNodo(Final)!=null){
             this.BuscarNodo(Final).setFinall(true);
         }else{
-            System.out.println("Error encontrado en 5");
-            System.exit(0);
+            this.Error(5);
         }
     }
     
@@ -98,6 +125,11 @@ public class Automata {
     @Override
     public String toString() {
         return "Graph [nodes=" + nodos + "]";
+    }
+    
+    private void Error(int linea){
+        System.out.println("Error encontrado en "+linea);
+        System.exit(0);
     }
     
 }

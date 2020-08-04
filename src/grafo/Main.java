@@ -40,15 +40,18 @@ public class Main {
         //Verificar el String
         au.IniciarPila(Linea6);
         
-        //Falta hacer la wea de la linea 7
+        au.AgregarTransiciones(Separador(Linea7," ","(\\w.*)",7));
         
         //Hacer que lea la wea de palabra
     }
     
     public static String[] Separador(String palabra,String separador,String regla,int linea){
         String[] separada=palabra.split(separador);
-        for(String item : separada)
-            Verificador(item,regla,linea);
+        for(String item : separada){
+            if(linea!=7){
+                Verificador(item,regla,linea);
+            }
+        }
         return separada;
     }
     
