@@ -99,6 +99,7 @@ public class Automata {
             }
             this.AgregarTransicion(trans[0], trans[1], trans1[0], trans1[1], trans[3]);
         }
+        this.BuscarPalabra();
     }
     
     public Nodo BuscarNodo(String ABuscar){
@@ -195,6 +196,41 @@ public class Automata {
     @Override
     public String toString() {
         return "Graph [nodes=" + nodos + "]";
+    }
+    
+    public void BuscarPalabra(){
+        int cont=0;
+        for(Transicion tran : this.transiciones){
+            cont=0;
+            for(Transicion trans : this.transiciones){
+                if(tran.getOrigen().getEstado().equalsIgnoreCase(trans.getOrigen().getEstado())){
+                    if(tran.getPalabra_Pila().equalsIgnoreCase(trans.getPalabra_Pila())){
+                        cont++;
+                    }
+                }
+            }
+            if(cont>1){
+                this.Error(7);
+            }
+        }
+        
+    }
+    
+    public void RevisarPalabra(String Palabra){
+        boolean error;
+        int y;
+        for(int cont=0;cont<Palabra.length();cont++){
+            y=cont;
+            error=true;
+            for(String simbolos : this.Simbolos){
+                if(simbolos.equalsIgnoreCase(Palabra.substring(cont,y+1))){
+                    error=false;
+                }
+            }
+            if(error==true){
+                this.Error(8);
+            }
+        }
     }
     
     private void Error(int linea){

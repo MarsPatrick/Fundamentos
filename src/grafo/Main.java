@@ -32,6 +32,9 @@ public class Main {
         au.setFinal(Separador(Linea5," ","(\\w.*)",5));
         au.IniciarPila(Linea6);
         au.AgregarTransiciones(Separador(Linea7," ","(\\w.*)",7));
+        
+        au.RevisarPalabra(Linea8);
+        
         au.recorrer(Linea8);
     }
     
