@@ -95,10 +95,11 @@ public class Automata {
                     if(tran.getSimbolo_Pila().equalsIgnoreCase(x)){
                         if(!tran.getPalabra_Pila().equalsIgnoreCase(" ")){
                             y=tran.getPalabra_Pila().length();
-                            for(int cont=0;cont<y;cont++){
+                            for(int cont=y;cont>0;cont--){
                                 z=cont;
-                                this.pila.Agregar(tran.getPalabra_Pila().substring(cont, z+1));
+                                this.pila.Agregar(tran.getPalabra_Pila().substring(z-1, cont));
                             }
+                            
                         }
                         return tran.getDestino();
                     }
@@ -113,11 +114,13 @@ public class Automata {
         int y;
         for(int cont=0;cont<x;cont++){
             y=cont;
+            System.out.println(Palabra.substring(0, cont)+"."+Palabra.substring(cont,x)+" "+this.actual.getEstado()+" "+this.pila.Imprimir());
             Nodo n = this.HacerTransicion(Palabra.substring(cont,y+1));
             actual = n;
             //El soout da null pointer dice
-            System.out.println(Palabra.substring(0, cont)+"."+Palabra.substring(cont,x)+" "+this.actual.getEstado()+" "+this.pila.Imprimir());
+            
         }
+        System.out.println(Palabra+". "+this.actual.getEstado()+" "+this.pila.Imprimir());
     }
     
     public void setInicial(String Inicial){

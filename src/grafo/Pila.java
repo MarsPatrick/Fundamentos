@@ -30,13 +30,13 @@ public class Pila {
         String x="";
         String y;
         Stack reserva = new Stack();
-        pila=this.DarVuelta(pila);
         while(!pila.isEmpty()){
             y=this.EliminarUltimo().toString();
             x=x+y;
             reserva.push(y);
         }
-        pila=reserva;
+        pila=this.DarVuelta(reserva);
+        //pila=reserva;
         return x;
     }
     
