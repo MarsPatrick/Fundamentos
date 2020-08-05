@@ -91,6 +91,9 @@ public class Automata {
             String tran=item.substring(1,item.length()-1);
             String[] trans = tran.split(",");
             String[] trans1 = trans[2].split("=");
+            if(trans[1].equalsIgnoreCase("#")){
+                this.Error(7);
+            }
             if(trans[3].equalsIgnoreCase("#")){
                 trans[3]=" ";
             }

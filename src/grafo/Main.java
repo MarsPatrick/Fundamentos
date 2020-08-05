@@ -30,12 +30,8 @@ public class Main {
         au.AgregarAlfabetoPila(Separador(Linea3," ","(\\w.*)",3));
         au.setInicial(Linea4);
         au.setFinal(Separador(Linea5," ","(\\w.*)",5));
-        
-        //Verificar el String
         au.IniciarPila(Linea6);
-        
         au.AgregarTransiciones(Separador(Linea7," ","(\\w.*)",7));
-        
         au.recorrer(Linea8);
     }
     
