@@ -11,6 +11,7 @@ public class Automata {
     public String[] AlfabetoPila;
     public Pila pila;
     public Nodo actual;
+    public String PilaInicial;
     
     public Automata(){
         this.nodos = new ArrayList();
@@ -34,11 +35,30 @@ public class Automata {
     }
     
     public void AgregarAlfabetoPila(String[] Simbolo){
+        for (int i = 0; i < Simbolo.length; i++) {
+            if(Simbolo[i].length()>1){
+                Error(3);
+            }
+        }
         this.AlfabetoPila=Simbolo;
     }
     
     public void IniciarPila(String Simbolo){
+        String aux[] = Simbolo.split(" ");
+        boolean error = true;
+        if(aux.length>1){
+            Error(6);
+        }
+        for(String algo : this.AlfabetoPila){
+            if(algo.equalsIgnoreCase(Simbolo)){
+                error=false;
+            }
+        }
+        if(error==true){
+            Error(6);
+        }
         this.pila.Agregar(Simbolo);
+        this.PilaInicial = Simbolo;
     }
     
     public void AgregarTransicion(String origen,String Simbolo,String Simbolo_Pila,String destino,String Palabra_Pila){
@@ -87,6 +107,9 @@ public class Automata {
     }
     
     public Nodo HacerTransicion(String Simbolo){
+        if(this.pila.isEmpty()){
+            return actual;
+        }
         String x=this.pila.EliminarUltimo().toString();
         int y,z;
         for(Transicion tran : this.transiciones){
@@ -106,7 +129,7 @@ public class Automata {
                 }
             }
         }
-        return null;
+        return actual;
     }
     
     public void recorrer(String Palabra){
@@ -116,11 +139,27 @@ public class Automata {
             y=cont;
             System.out.println(Palabra.substring(0, cont)+"."+Palabra.substring(cont,x)+" "+this.actual.getEstado()+" "+this.pila.Imprimir());
             Nodo n = this.HacerTransicion(Palabra.substring(cont,y+1));
-            actual = n;
-            //El soout da null pointer dice
-            
+            actual = n;            
         }
         System.out.println(Palabra+". "+this.actual.getEstado()+" "+this.pila.Imprimir());
+        this.Aceptado();
+    }
+    
+    public void Aceptado(){
+        for(Nodo nodo : this.getNodes()){
+            if(nodo.getFinall()){
+                if(nodo==actual){
+                    if(!this.pila.isEmpty()){
+                        if(this.pila.EliminarUltimo().toString().equalsIgnoreCase(this.PilaInicial)){
+                            System.out.println("Aceptado");
+                            System.exit(0);
+                        }
+                    }
+                }
+            }
+        }
+        System.out.println("Rechazado");
+        System.exit(0);
     }
     
     public void setInicial(String Inicial){
@@ -133,12 +172,13 @@ public class Automata {
         }
     }
     
-    public void setFinal(String Final){
-        //Arreglar string y cantidad de finales
-        if(this.BuscarNodo(Final)!=null){
-            this.BuscarNodo(Final).setFinall(true);
-        }else{
-            this.Error(5);
+    public void setFinal(String[] Finales){
+        for(String Final : Finales){
+            if(this.BuscarNodo(Final)!=null){
+                this.BuscarNodo(Final).setFinall(true);
+            }else{
+                this.Error(5);
+            }
         }
     }
     

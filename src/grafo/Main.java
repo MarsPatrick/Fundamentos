@@ -27,15 +27,9 @@ public class Main {
        
         au.AgregarEstados(Separador(Linea1," ","(\\w.*)",1));
         au.AgregarSimbolos(Separador(Linea2," ","(\\w.*)",2));
-        
-        //Verificar que sea solo uno
         au.AgregarAlfabetoPila(Separador(Linea3," ","(\\w.*)",3));
-        
-        //Verificar que sea solo uno
         au.setInicial(Linea4);
-        
-        //Cambiar a String[] y que lo o los agregue en el automata
-        au.setFinal(Linea5);
+        au.setFinal(Separador(Linea5," ","(\\w.*)",5));
         
         //Verificar el String
         au.IniciarPila(Linea6);

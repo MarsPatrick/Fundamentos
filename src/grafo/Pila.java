@@ -10,6 +10,10 @@ public class Pila {
         this.pila= new Stack();
     }
     
+    public boolean isEmpty(){
+        return this.pila.isEmpty();
+    }
+    
     public void Agregar(String Simbolo){
         this.pila.push(Simbolo);
     }
