@@ -3,6 +3,7 @@ import java.util.Scanner;
 /**
  * @author Jorge Fernandez
  * @author Patricio Labra
+ * @author Luis Vasquez
  */
 public class Main {
     public static void main(String[] args){
