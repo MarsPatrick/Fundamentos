@@ -13,6 +13,10 @@ public class Nodo {
     private boolean Inicial=false;
     private boolean Fin=false;
  
+    public Nodo(){
+        
+    }
+    
     public Nodo(String Estado) {
         this.Estado = Estado;
     }
@@ -44,11 +48,11 @@ public class Nodo {
         this.Inicial = Inicial;
     }
 
-    public boolean isFin() {
+    public boolean getFinall() {
         return Fin;
     }
 
-    public void setFin(boolean Fin) {
+    public void setFinall(boolean Fin) {
         this.Fin = Fin;
     }
     

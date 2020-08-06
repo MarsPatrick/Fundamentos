@@ -1,145 +1,158 @@
+
 package javaapplication1;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 public class Automata {
-
-    private ArrayList<String> estados;
-    private HashSet<String> estadosfinales;
-    private ArrayList<Transicion> transiciones;
-    private ArrayList<String> simbolos;
-    private String estadoinicial;
-    private Grafo grafo;
-    private String palabra;
-
+    public List<Nodo> nodos;
+    public List<Transicion> transiciones;
+    public String[] Simbolos;
+    public Nodo actual;
+    
     public Automata(){
-        this.estados = new ArrayList<String>();
-        this.estadoinicial = new String();
-        this.estadosfinales = new HashSet<String>();
-        this.transiciones = new ArrayList<Transicion>();
-        this.simbolos = new ArrayList<String>();
-        this.grafo = new Grafo();
-        this.palabra = new String();
-    }
-
-    public void AgregarNodo(Nodo nodo){
-       grafo.addNodo(nodo);
+        this.nodos = new ArrayList();
+        this.transiciones = new ArrayList();
     }
     
-    
-    public void AgregarSimbolo(String simbolo){
-        this.simbolos.add(simbolo);
+    public void AgregarEstados(String[] Estados){
+        if (nodos == null) {
+            nodos = new ArrayList<>();
+        }
+        for(String item : Estados){
+            Nodo n = new Nodo();
+            n.setEstado(item);
+            this.nodos.add(n);
+        }
     }
     
-    public void AgregarEstado(String estado){
-        this.estados.add(estado);
+    public void AgregarSimbolos(String[] Simbolo){
+        this.Simbolos=Simbolo;
     }
     
-    public void AgregarEstadoFinal(String estadofinal){
-        this.estadosfinales.add(estadofinal);
+    public void AgregarTransicion(String origen,String destino,String Simbolo){
+        boolean error=true;
+        if(this.BuscarNodo(origen)==null || this.BuscarNodo(destino)==null){
+            this.Error(5);
+        }
+        for(String simb: this.Simbolos){
+            if(simb.equalsIgnoreCase(Simbolo)){
+                error=false;
+            }
+        }
+        if(error==true){
+            this.Error(5);
+        }
+        Transicion t=new Transicion(this.BuscarNodo(origen),this.BuscarNodo(destino),Simbolo);
+        this.transiciones.add(t);
     }
     
-    public void AgregarTransicion(Transicion transicion){
-        this.transiciones.add(transicion);
+    public void AgregarTransiciones(String[] Transiciones){
+        for(String item : Transiciones){
+            String tran=item.substring(1,item.length()-1);
+            String[] trans = tran.split(",");
+            if(trans[1].equalsIgnoreCase("#")){
+                this.Error(5);
+            }
+            this.AgregarTransicion(trans[0], trans[2], trans[1]);
+        }
     }
     
-    public void AgregarEstadoInicial(String estadoinicial){
-        this.estadoinicial=estadoinicial;
+    public Nodo BuscarNodo(String ABuscar){
+        for(Nodo n:nodos){
+            if(n.getEstado().equalsIgnoreCase(ABuscar))
+                return n;
+        }
+        return null;
     }
     
-    public ArrayList<String> getSimbolos() {
-        return simbolos;
-    }
-
-    public Grafo getGrafo(){
-        return grafo;
-    }
-    
-    public ArrayList<String> getEstados() {
-        return estados;
-    }
-
-    public HashSet<String> getEstadosfinales() {
-        return estadosfinales;
-    }
-
-    public String getEstadoinicial() {
-        return estadoinicial;
-    }
-
-    public ArrayList<Transicion> getTransiciones() {
-        return transiciones;
-    }
-
-    public String getPalabra() {
-        return palabra;
-    }
-
-    public void setPalabra(String palabra) {
-        this.palabra = palabra;
-    }
-    
-    public void Palabra(){
-        int tam=this.palabra.length();
-        Nodo n=this.transiciones.get(0).getOrigen();
-        String av=this.palabra;
-        boolean xd =false;
-        boolean xd2=false;
-        int i=this.getSimbolos().get(0).length();
-        for(int x=0;x<tam+1;x=x+i){
-            if(xd2==false){
-                System.out.println(av.substring(0,x)+"_"+av.substring(x,tam)+" "+n.getEstado());
-                for(Transicion tran : this.transiciones){
-                    if(n.getEstado().equalsIgnoreCase(tran.getOrigen().getEstado())){
-                        if(tran.getValor().equals(this.palabra.substring(x, x+i))){
-                            if(xd==false){
-                                n=tran.getDestino();
-                                xd=true;
-                            }
-                        }
-                    }
+    public Nodo HacerTransicion(String Simbolo){
+        for(Transicion tran : this.transiciones){
+            if(tran.getOrigen().getEstado().equalsIgnoreCase(this.actual.getEstado())){
+                if(tran.getValor().equalsIgnoreCase(Simbolo)){
+                    return tran.getDestino();
                 }
-                if(xd==false){
-                    xd2=true;
+            }
+        }
+        return actual;
+    }
+    
+    public void recorrer(String Palabra){
+        int x=Palabra.length();
+        int y;
+        for(int cont=0;cont<x;cont++){
+            y=cont;
+            System.out.println(Palabra.substring(0, cont)+"_"+Palabra.substring(cont,x)+" "+this.actual.getEstado()+" "+" ");
+            Nodo n = this.HacerTransicion(Palabra.substring(cont,y+1));
+            actual = n;            
+        }
+        this.Aceptado();
+    }
+    
+    public void Aceptado(){
+        for(Nodo nodo : this.getNodes()){
+            if(nodo.getFinall()){
+                if(nodo==actual){
+                            System.out.println("Aceptado");
+                            System.exit(0);
                 }
-                xd=false;
+            }
+        }
+        System.out.println("Rechazado");
+        System.exit(0);
+    }
+    
+    public void setInicial(String Inicial){
+        //Arreglar String
+        if(this.BuscarNodo(Inicial)!=null){
+            this.BuscarNodo(Inicial).setInicial(true);
+            this.actual=this.BuscarNodo(Inicial);
+        }else{
+            this.Error(3);
+        }
+    }
+    
+    public void setFinal(String[] Finales){
+        for(String Final : Finales){
+            if(this.BuscarNodo(Final)!=null){
+                this.BuscarNodo(Final).setFinall(true);
+            }else{
+                this.Error(4);
             }
         }
     }
     
-    public void Acepta(){
-        String pal = this.getPalabra();
-        int cont=0;
-        int x=this.getSimbolos().get(cont).length();
-        Boolean acep=false;
-        for (Nodo nodo : this.getGrafo().getNodos()) {
-            if (nodo.isInicial()==true) {
-                for (int i = 0; i < pal.length(); i=i+x) {
-                    String temp=pal.substring(i, i+x);
-                    if(nodo.isFin()==true && nodo.getTransicion()==null){
-                        break;
-                    }
-                    for (Transicion tran : nodo.getTransicion()) {
-                        if(temp.equals(tran.getValor())){
-                            List<Nodo> nodos = this.getGrafo().getNodos();
-                            for (int j = 0; j < nodos.size(); j++) {
-                                if(nodos.get(j).getEstado().equalsIgnoreCase(tran.getDestino().getEstado()))
-                                    nodo=nodos.get(j);
-                            }
-                            if(nodo.isFin()==true && (i+x)==pal.length()){
-                                System.out.println("Aceptado");
-                                acep=true;
-                                System.exit(0);
-                            }
-                        }
-                    }
+    public void addNode(Nodo node) {
+        nodos.add(node);
+    }
+ 
+    public List<Nodo> getNodes() {
+        return nodos;
+    }
+    @Override
+    public String toString() {
+        return "Graph [nodes=" + nodos + "]";
+    }
+    
+    public void RevisarPalabra(String Palabra){
+        boolean error;
+        int y;
+        for(int cont=0;cont<Palabra.length();cont++){
+            y=cont;
+            error=true;
+            for(String simbolos : this.Simbolos){
+                if(simbolos.equalsIgnoreCase(Palabra.substring(cont,y+1))){
+                    error=false;
                 }
             }
-        }
-        if(acep==false){
-            System.out.println("Rechazado");
+            if(error==true){
+                this.Error(6);
+            }
         }
     }
+    
+    private void Error(int linea){
+        System.out.println("Error encontrado en "+linea);
+        System.exit(0);
+    }   
 }
