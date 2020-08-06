@@ -1,6 +1,4 @@
-
 package grafo;
-
 
 public class Transicion {
     private Nodo Origen;
@@ -60,7 +58,5 @@ public class Transicion {
     public String toString() {
         return "\n Linea [ Estado original = " + Origen.getEstado()+ ", Estado donde llega =" + Destino.getEstado() + ", Valor="
                 + Simbolo + "]";
-    }
- 
-    
+    }   
 }

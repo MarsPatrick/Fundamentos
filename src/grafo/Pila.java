@@ -40,8 +40,6 @@ public class Pila {
             reserva.push(y);
         }
         pila=this.DarVuelta(reserva);
-        //pila=reserva;
         return x;
     }
-    
 }

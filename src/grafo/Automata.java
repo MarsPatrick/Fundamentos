@@ -133,6 +133,7 @@ public class Automata {
                 }
             }
         }
+        this.pila.Agregar(x);
         return actual;
     }
     
@@ -236,6 +237,5 @@ public class Automata {
     private void Error(int linea){
         System.out.println("Error encontrado en "+linea);
         System.exit(0);
-    }
-    
+    }   
 }
